@@ -22,8 +22,15 @@
     <div id="user_list_box"></div>
 
     <!--こちらに基礎課題で言われてる内容を記述しましょう。ここまで-->
-    <script type="text/javascript">
+    <!--こちらに実務課題で言われてる内容を記述しましょう。ここから-->
+    <form action="">
+      <input type="text" value="" name="" id="form_text">
+      <input type="button" value="クリック" id="button" onclick="change();">
+    </form>
+    <div id="text_box"></div>
 
+    <!--こちらに実務課題で言われてる内容を記述しましょう。ここまで-->
+    <script type="text/javascript">
         // 参考例
         let textTag = document.getElementById('textTag');
         let NUMBER = `<%= number %>`;
@@ -58,9 +65,9 @@
         let user_list_box = document.getElementById('user_list_box');
         let USERLIST = `<%= userlist %>`;
 
-        userNames.forEach(function(userNames) {
-          user_list_box.insertAdjacentHTML("beforeend",`<div>${userNames.name}</div>`);
-        });
+        // userNames.forEach(function(userNames) {
+        //   user_list_box.insertAdjacentHTML("beforeend",`<div>${userNames.name}</div>`);
+        // });
 
         for (let i = 0; i < userNames.length; i++) {
           console.log(userNames[i].name);
@@ -70,6 +77,19 @@
         // DBからのオブジェクトクラスになります。一旦console.logで何の情報が入ってるのか確認しましょう。
 
         // 実務課題01:IDで検索したオブジェクトクラスを入力フォームに表示して下さい。
+        let users = JSON.parse('<%= JSON.stringify(users) %>'.replace(/&#34;/g, '"'));
+        let button = document.getElementById('button');
+        let form_text = document.getElementById("form_text");
+        let text_box = document.getElementById('text_box');
+
+        function change(){
+          users.forEach(function(users) {
+            console.log(users);
+            if(users.id == form_text.value){
+              text_box.insertAdjacentHTML("beforeend",`<div>${users.name}</div><div>${users.email}</div>`);
+            }
+          });
+        }
     </script>
 </body>
 </html>
