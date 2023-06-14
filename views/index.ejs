@@ -28,7 +28,26 @@
       <input type="button" value="クリック" id="button" onclick="change();">
     </form>
     <div id="text_box"></div>
-
+    <!-- <table>
+    <% for (let i = 0; i < users.length; i++) { %>
+      <tr>
+        <td><%- users[i].name%></td>
+      </tr>
+      <tr>
+        <td><%- users[i].name%></td>
+      </tr>
+    <% } %>
+    </table> -->
+    <table>
+    <% users.forEach(function (users) { %>
+      <tr>
+        <td><%= users.email %></td>
+        <td><%= users.name %></td>
+        <td><a href="/edit/<%= users.id %>"><input type="button" value="更新"></a></td>
+        <td><a href="/delete/<%= users.id %>"><input type="button" value="削除"></a></td>
+      </tr>
+    <% }); %>
+    </table>
     <!--こちらに実務課題で言われてる内容を記述しましょう。ここまで-->
     <script type="text/javascript">
         // 参考例
@@ -90,6 +109,8 @@
             }
           });
         }
+
+
     </script>
 </body>
 </html>
