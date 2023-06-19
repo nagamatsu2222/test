@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>入力フォーム</title>
+    <style>
+      .red{
+        color: red;
+        background-color: #fee;
+        margin: 0 0 0 10px;
+        padding: 1px 0.5em;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>入力フォーム</h1>
+		<!--ここに追加-->
+    <form action="/" method="post" id="form">
+      <p>name
+      <input type="text" name="name" value="" id="name" required><span id="name_text" ></span></p>
+      <p>mail
+      <input type="email" name="mail" value="" id="mail" required><span id="mail_text" ></span></p>
+      <input type="submit" value="送信" id="form_btn" disabled>
+    </form>
+    <script>
+      let form = document.getElementById('form');
+      let username = document.getElementById('name');
+      let mail = document.getElementById('mail');
+      let form_btn = document.getElementById('form_btn');
+      const name_text = document.getElementById('name_text');
+      const mail_text = document.getElementById('mail_text');
+      const mailPattern = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]+.[A-Za-z0-9]+$/;
+      username.addEventListener("change", update);
+      mail.addEventListener("change", update);
+
+      function update() {
+        const isUsername = username.checkValidity();
+        const isMail = mail.checkValidity();
+
+        if (isUsername && isMail) {
+          console.log(isUsername);
+          console.log(isMail);
+          form_btn.disabled = false;
+          return;
+        } else if(username.value === "" || mail.value === ""){
+          form_btn.disabled = true;
+          return;
+        }
+      }
+
+      username.addEventListener("change",function(){
+        if (username.value.match(/^[A-Za-z0-9]+.*$/)){
+          console.log('test')
+        }else{
+          name_text.insertAdjacentHTML("beforeend",`<span class="red">nameエラー</span>`);
+          return false;
+        }
+      });
+
+      mail.addEventListener("change",function(){
+        if (mailPattern.test(mail.value)){
+
+        }else{
+          mail_text.insertAdjacentHTML("beforeend",`<span class="red">mailエラー</span>`);
+          return false;
+        }
+      });
+    </script>
+  </body>
+</html>

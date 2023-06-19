@@ -2,8 +2,10 @@ const path = require('path');
 const express = require('express');
 const ejs = require('ejs');
 const app = express();
+const bodyParser = require('body-parser');
 const port = 3000;
 
+app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 
 const mysql = require('mysql2');
@@ -54,6 +56,18 @@ app.get('/', (req, res) => {
       email: "t.hasegawa@gmail.com"
     }
   ]
+  app.post('/', (req, res) => {
+    const sql = "INSERT INTO users SET ?"
+    con.query(sql, req.body, function(err, result, fields) {
+      if (err) throw err;
+      console.log(result);
+      res.redirect('/');
+    });
+  });
+
+  app.get('/create', (req, res) => {
+    res.sendFile(path.join(__dirname, 'html/form.html'))
+  });
   // name: s.chiba, email: s.chiba@gmail.com
   // name: t.kosuge, email: t.kosuge@gmail.com
   // name: m.chiba, email: m.chiba@gmail.com
